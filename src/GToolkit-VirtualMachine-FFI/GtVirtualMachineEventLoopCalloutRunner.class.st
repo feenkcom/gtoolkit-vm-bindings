@@ -1,8 +1,21 @@
 Class {
 	#name : #GtVirtualMachineEventLoopCalloutRunner,
 	#superclass : #TFRunner,
+	#classInstVars : [
+		'uniqueInstance'
+	],
 	#category : #'GToolkit-VirtualMachine-FFI'
 }
+
+{ #category : #accessing }
+GtVirtualMachineEventLoopCalloutRunner class >> cleanUp [
+	uniqueInstance := nil
+]
+
+{ #category : #accessing }
+GtVirtualMachineEventLoopCalloutRunner class >> uniqueInstance [
+	^ uniqueInstance ifNil: [ uniqueInstance := self new ]
+]
 
 { #category : #executing }
 GtVirtualMachineEventLoopCalloutRunner >> doInitialize [
