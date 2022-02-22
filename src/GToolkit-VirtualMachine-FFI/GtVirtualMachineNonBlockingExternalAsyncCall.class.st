@@ -13,7 +13,9 @@ GtVirtualMachineNonBlockingExternalAsyncCall >> doExecuteOn: aRunner [
 	aRunner
 		executeFunction: function
 		withArguments: parameterArray
-		usingSemaphore: self semaphoreIndex
+		usingSemaphore: self semaphoreIndex.
+
+	^ nil
 ]
 
 { #category : #operations }
@@ -50,6 +52,6 @@ GtVirtualMachineNonBlockingExternalAsyncCall >> semaphoreIndex [
 GtVirtualMachineNonBlockingExternalAsyncCall >> validateFunction [
 	super validateFunction.
 	
-	function definition returnType resolvedType isVoid
+	function definition returnType isVoid
 		ifFalse: [ 'Non-blocking call must not return anything!' ].
 ]
