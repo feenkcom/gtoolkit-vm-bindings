@@ -6,7 +6,7 @@ Class {
 
 { #category : #'api - accessing' }
 GtVirtualMachine >> namedPrimitives [
-	^ self primNamedPrimitives collect: [ :eachArray |
+	^ self primitiveGetNamedPrimitives collect: [ :eachArray |
 		GtVirtualMachineNamedPrimitive new
 			plugin: eachArray first;
 			primitive: eachArray second;
@@ -14,8 +14,8 @@ GtVirtualMachine >> namedPrimitives [
 ]
 
 { #category : #'private - primitives' }
-GtVirtualMachine >> primNamedPrimitives [
-	<primitive: 'get_named_primitives'>
+GtVirtualMachine >> primitiveGetNamedPrimitives [
+	<primitive: 'primitiveGetNamedPrimitives'>
 	
 	^ #()
 ]
