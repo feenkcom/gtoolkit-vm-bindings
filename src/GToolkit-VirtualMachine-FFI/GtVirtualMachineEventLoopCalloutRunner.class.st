@@ -54,5 +54,7 @@ GtVirtualMachineEventLoopCalloutRunner >> primitivePerformWorkerCall: aTFExterna
 
 { #category : #executing }
 GtVirtualMachineEventLoopCalloutRunner >> readReturnValueFromTask: anExternalAddress [
-	^ nil
+	<primitive: 'primitiveExtractReturnValue'>
+
+	self primitiveFailed
 ]
