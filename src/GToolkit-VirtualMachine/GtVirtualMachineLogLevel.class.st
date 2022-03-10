@@ -4,12 +4,17 @@ Class {
 	#instVars : [
 		'value'
 	],
-	#category : #'GToolkit-VirtualMachine'
+	#category : #'GToolkit-VirtualMachine-Logger'
 }
 
 { #category : #accessing }
 GtVirtualMachineLogLevel class >> debug [
 	^ GtVirtualMachineDebugLogLevel new
+]
+
+{ #category : #accessing }
+GtVirtualMachineLogLevel class >> error [
+	^ GtVirtualMachineErrorLogLevel new
 ]
 
 { #category : #accessing }

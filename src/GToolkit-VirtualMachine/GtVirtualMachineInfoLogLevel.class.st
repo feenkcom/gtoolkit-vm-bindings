@@ -1,7 +1,7 @@
 Class {
 	#name : #GtVirtualMachineInfoLogLevel,
 	#superclass : #GtVirtualMachineLogLevel,
-	#category : #'GToolkit-VirtualMachine'
+	#category : #'GToolkit-VirtualMachine-Logger'
 }
 
 { #category : #accessing }

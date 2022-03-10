@@ -1,7 +1,7 @@
 Class {
 	#name : #GtVirtualMachine,
 	#superclass : #Object,
-	#category : #'GToolkit-VirtualMachine'
+	#category : #'GToolkit-VirtualMachine-Core'
 }
 
 { #category : #'api - accessing' }

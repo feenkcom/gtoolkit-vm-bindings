@@ -6,7 +6,7 @@ Class {
 		'primitive',
 		'address'
 	],
-	#category : #'GToolkit-VirtualMachine'
+	#category : #'GToolkit-VirtualMachine-Core'
 }
 
 { #category : #accessing }
