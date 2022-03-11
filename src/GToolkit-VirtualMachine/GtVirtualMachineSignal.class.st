@@ -9,6 +9,16 @@ Class {
 	#category : #'GToolkit-VirtualMachine-Logger'
 }
 
+{ #category : #signalling }
+GtVirtualMachineSignal class >> isAbstract [
+	^ self == GtVirtualMachineSignal
+]
+
+{ #category : #signalling }
+GtVirtualMachineSignal class >> signalName [
+	^ self subclassResponsibility
+]
+
 { #category : #accessing }
 GtVirtualMachineSignal >> fileName [
 
