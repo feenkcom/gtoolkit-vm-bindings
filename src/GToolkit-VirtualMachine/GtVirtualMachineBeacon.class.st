@@ -13,23 +13,23 @@ Class {
 	#category : #'GToolkit-VirtualMachine-Logger'
 }
 
-{ #category : #accessing }
+{ #category : #'api - logger' }
 GtVirtualMachineBeacon class >> instance [
 	^ instance ifNil: [ instance := self new ]
 ]
 
-{ #category : #accessing }
+{ #category : #'api - logger' }
 GtVirtualMachineBeacon class >> start [
 	self instance start
 ]
 
-{ #category : #accessing }
+{ #category : #'api - logger' }
 GtVirtualMachineBeacon class >> startFor: aLoggerSignalClass [
 	GtVirtualMachine instance enableSignal: aLoggerSignalClass.
 	self instance start
 ]
 
-{ #category : #accessing }
+{ #category : #'api - logger' }
 GtVirtualMachineBeacon class >> stop [
 	self instance stop
 ]

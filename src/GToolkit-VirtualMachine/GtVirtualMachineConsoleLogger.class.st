@@ -4,9 +4,14 @@ Class {
 	#category : #'GToolkit-VirtualMachine-Logger'
 }
 
-{ #category : #running }
+{ #category : #'api - logger' }
 GtVirtualMachineConsoleLogger class >> startFor: aLoggerSignalClass [
 	GtVirtualMachine instance
 		enableSignal: aLoggerSignalClass;
 		startConsoleLogger
+]
+
+{ #category : #'api - logger' }
+GtVirtualMachineConsoleLogger class >> stop [
+	GtVirtualMachine instance stopLogger
 ]
