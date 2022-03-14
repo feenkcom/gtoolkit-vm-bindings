@@ -10,13 +10,16 @@ GtVirtualMachine class >> instance [
 ]
 
 { #category : #'api - logger' }
-GtVirtualMachine >> enableSignal: aSignalClass [
+GtVirtualMachine >> enableSignal: aSignalClassOrSigalOrAnnouncementSet [
 	"Enable a given signal type in the vm"
+	
+	aSignalClassOrSigalOrAnnouncementSet isCollection
+		ifTrue: [ ^ aSignalClassOrSigalOrAnnouncementSet do: [ :eachSignal | self enableSignal: eachSignal ] ].
 
-	aSignalClass isClass
-		ifFalse: [ ^ self enableSignalNamed: aSignalClass signalName ].
+	aSignalClassOrSigalOrAnnouncementSet isClass
+		ifFalse: [ ^ self enableSignalNamed: aSignalClassOrSigalOrAnnouncementSet signalName ].
 
-	aSignalClass withAllSubclassesDo: [ :eachSignalClass |
+	aSignalClassOrSigalOrAnnouncementSet withAllSubclassesDo: [ :eachSignalClass |
 		(eachSignalClass isAbstract not and: [ eachSignalClass signalName notNil ])
 			ifTrue: [ self enableSignalNamed: eachSignalClass signalName ] ]
 ]
