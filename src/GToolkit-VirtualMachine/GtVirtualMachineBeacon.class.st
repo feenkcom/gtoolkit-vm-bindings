@@ -24,6 +24,12 @@ GtVirtualMachineBeacon class >> start [
 ]
 
 { #category : #accessing }
+GtVirtualMachineBeacon class >> startFor: aLoggerSignalClass [
+	GtVirtualMachine new enableSignal: aLoggerSignalClass.
+	self instance start
+]
+
+{ #category : #accessing }
 GtVirtualMachineBeacon class >> stop [
 	self instance stop
 ]
@@ -47,41 +53,12 @@ GtVirtualMachineBeacon >> deregisterSemaphore [
 	semaphoreIndex := nil
 ]
 
-{ #category : #accessing }
-GtVirtualMachineBeacon >> enableSignal: aSignalClass [
-	"Enable a given signal type in the vm beacon"
-
-	aSignalClass withAllSubclassesDo: [ :eachSignalClass |
-		(eachSignalClass isAbstract not and: [ eachSignalClass signalName notNil ])
-			ifTrue: [ self enableSignalNamed: eachSignalClass signalName ] ]
-]
-
-{ #category : #accessing }
-GtVirtualMachineBeacon >> enableSignalNamed: aString [
-	"Enable a given signal type in the vm beacon"
-
-	self primitiveEnableBeaconSignal: aString
-]
-
-{ #category : #accessing }
-GtVirtualMachineBeacon >> enabledSignals [
-	"Return a collection of signal types (as string) that are enabled in the vm beacon"
-	<return: #Array of: #String>
-
-	^ self primitiveGetEnabledBeaconSignals
-]
-
 { #category : #initialization }
 GtVirtualMachineBeacon >> initialize [
 	super initialize.
 	
 	semaphore := Semaphore new.
 	semaphoreIndex := nil
-]
-
-{ #category : #accessing }
-GtVirtualMachineBeacon >> logLevel: aGtVirtualMachineLogLevel [
-	GtVirtualMachine new logLevel: aGtVirtualMachineLogLevel
 ]
 
 { #category : #'private - logger' }
@@ -114,38 +91,10 @@ GtVirtualMachineBeacon >> pollLogs [
 ]
 
 { #category : #'private - primitives' }
-GtVirtualMachineBeacon >> primitiveEnableBeaconSignal: aString [
-	<primitive: 'primitiveEnableLogSignal' error: ec>
-	
-	^ self primitiveFailed
-]
-
-{ #category : #'private - primitives' }
-GtVirtualMachineBeacon >> primitiveGetEnabledBeaconSignals [
-	<primitive: 'primitiveGetEnabledLogSignals'>
-	
-	^ self primitiveFailed
-]
-
-{ #category : #'private - primitives' }
 GtVirtualMachineBeacon >> primitivePollBeacon [
 	<primitive: 'primitivePollLogger'>
 	
 	^ #()
-]
-
-{ #category : #'private - primitives' }
-GtVirtualMachineBeacon >> primitiveStartBeacon: aSemaphoreIndex [
-	<primitive: 'primitiveStartBeacon'>
-	
-	^ false
-]
-
-{ #category : #'private - primitives' }
-GtVirtualMachineBeacon >> primitiveStopBeacon [
-	<primitive: 'primitiveStopLogger'>
-	
-	^ false
 ]
 
 { #category : #'private - semaphore' }
@@ -165,9 +114,10 @@ GtVirtualMachineBeacon >> signalMap [
 
 { #category : #accessing }
 GtVirtualMachineBeacon >> start [
+	self stop.
+
 	self registerSemaphore.
-	(self primitiveStartBeacon: semaphoreIndex)
-		ifFalse: [ self error: 'Could not set beacon logger' ].
+	GtVirtualMachine new startBeacon: semaphoreIndex.
 
 	process := [ self loggerLoop ] newProcess
 		priority: Processor userBackgroundPriority - 1;
@@ -180,6 +130,5 @@ GtVirtualMachineBeacon >> stop [
 	process ifNotNil: [ :aProcess | aProcess terminate ].
 	process := nil.
 	self deregisterSemaphore.
-	self primitiveStopBeacon
-		ifFalse: [ self error: 'Could not disable beacon logger' ]
+	GtVirtualMachine new stopLogger
 ]
