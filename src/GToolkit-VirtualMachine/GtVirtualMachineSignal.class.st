@@ -19,6 +19,11 @@ GtVirtualMachineSignal class >> signalName [
 	^ self subclassResponsibility
 ]
 
+{ #category : #copying }
+GtVirtualMachineSignal >> , aGtVirtualMachineSignal [
+	^ AnnouncementSet with: self with: aGtVirtualMachineSignal
+]
+
 { #category : #accessing }
 GtVirtualMachineSignal >> fileName [
 
