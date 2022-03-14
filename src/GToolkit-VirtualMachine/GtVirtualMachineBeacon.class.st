@@ -25,7 +25,7 @@ GtVirtualMachineBeacon class >> start [
 
 { #category : #accessing }
 GtVirtualMachineBeacon class >> startFor: aLoggerSignalClass [
-	GtVirtualMachine new enableSignal: aLoggerSignalClass.
+	GtVirtualMachine instance enableSignal: aLoggerSignalClass.
 	self instance start
 ]
 
@@ -117,7 +117,8 @@ GtVirtualMachineBeacon >> start [
 	self stop.
 
 	self registerSemaphore.
-	GtVirtualMachine new startBeacon: semaphoreIndex.
+	GtVirtualMachine instance
+		startBeacon: semaphoreIndex.
 
 	process := [ self loggerLoop ] newProcess
 		priority: Processor userBackgroundPriority - 1;
@@ -130,5 +131,5 @@ GtVirtualMachineBeacon >> stop [
 	process ifNotNil: [ :aProcess | aProcess terminate ].
 	process := nil.
 	self deregisterSemaphore.
-	GtVirtualMachine new stopLogger
+	GtVirtualMachine instance stopLogger
 ]

@@ -4,6 +4,11 @@ Class {
 	#category : #'GToolkit-VirtualMachine-Core'
 }
 
+{ #category : #accessing }
+GtVirtualMachine class >> instance [
+	^ self new
+]
+
 { #category : #'api - logger' }
 GtVirtualMachine >> enableSignal: aSignalClass [
 	"Enable a given signal type in the vm"
