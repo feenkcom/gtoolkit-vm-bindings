@@ -26,7 +26,7 @@ GtVirtualMachineEventLoopCalloutRunner >> doInitialize [
 
 { #category : #executing }
 GtVirtualMachineEventLoopCalloutRunner >> executeFunction: aTFExternalFunction withArguments: arguments usingSemaphore: anInteger [ 
-	self primitiveExecuteFunction: aTFExternalFunction withArguments: arguments usingSemaphore: anInteger
+	^ self primitiveExecuteFunction: aTFExternalFunction withArguments: arguments usingSemaphore: anInteger
 ]
 
 { #category : #executing }
@@ -54,7 +54,7 @@ GtVirtualMachineEventLoopCalloutRunner >> primitivePerformWorkerCall: aTFExterna
 
 { #category : #executing }
 GtVirtualMachineEventLoopCalloutRunner >> readReturnValueFromTask: anExternalAddress [
-	<primitive: 'primitiveExtractReturnValue'>
+	<primitive: 'primitiveExtractReturnValue' error: ec>
 
 	self primitiveFailed
 ]
