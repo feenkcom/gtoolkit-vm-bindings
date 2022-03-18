@@ -41,7 +41,7 @@ GtVirtualMachineEventLoopCalloutRunner >> invokeFunction: aTFExternalFunction wi
 
 { #category : #private }
 GtVirtualMachineEventLoopCalloutRunner >> primitiveExecuteFunction: aTFExternalFunction withArguments: arguments usingSemaphore: anInteger [ 
-	<primitive: 'primitiveEventLoopCallout'>
+	<primitive: 'primitiveEventLoopCallout' error: ec>
 
 	^ self primitiveFailed
 ]
