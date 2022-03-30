@@ -18,6 +18,16 @@ GtVirtualMachineExternalFunction >> blocking: anObject [
 	blocking := anObject
 ]
 
+{ #category : #accessing }
+GtVirtualMachineExternalFunction >> functionName: anObject [
+	functionName := anObject asString
+]
+
+{ #category : #accessing }
+GtVirtualMachineExternalFunction >> moduleName: anObject [
+	moduleName := anObject asString
+]
+
 { #category : #printing }
 GtVirtualMachineExternalFunction >> printOn: aStream [
 
