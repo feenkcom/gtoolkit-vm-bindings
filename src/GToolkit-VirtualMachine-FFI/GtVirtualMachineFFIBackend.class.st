@@ -70,7 +70,12 @@ GtVirtualMachineFFIBackend >> loadSymbol: moduleSymbol module: module [
 	encodedString := module ifNotNil: [ module utf8Encoded asString ].
 	
 	"The primitive is expected the module to be a utf8Encoded String."
-	^ self primLoadSymbol: moduleSymbol module: encodedString
+	^ [ self primLoadSymbol: moduleSymbol module: encodedString ]
+		on: Error
+		do: [ :anError |
+			(GtVirtualMachineSymbolNotFoundError new
+				symbolName: moduleSymbol;
+				moduleName: module) signal ]
 ]
 
 { #category : #accessing }
