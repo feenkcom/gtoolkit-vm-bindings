@@ -13,6 +13,9 @@ GtVirtualMachine class >> instance [
 GtVirtualMachine >> enableSignal: aSignalClassOrSigalOrAnnouncementSet [
 	"Enable a given signal type in the vm"
 	
+	aSignalClassOrSigalOrAnnouncementSet isString
+		ifTrue: [ ^ self enableSignalNamed: aSignalClassOrSigalOrAnnouncementSet ].
+	
 	aSignalClassOrSigalOrAnnouncementSet isCollection
 		ifTrue: [ ^ aSignalClassOrSigalOrAnnouncementSet do: [ :eachSignal | self enableSignal: eachSignal ] ].
 
