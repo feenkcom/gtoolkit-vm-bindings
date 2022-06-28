@@ -6,6 +6,17 @@ Class {
 
 { #category : #'private - factory' }
 GtVirtualMachineCalloutMethodBuilder >> createFFICalloutLiteralFromSpec: functionSpec [
+
+	SystemVersion current major = 10 ifTrue: [ 
+		^ 	(GtVirtualMachineExternalFunction
+			name: functionSpec functionName
+			moduleName: self libraryName
+			parameterTypes: (functionSpec arguments collect: #tfExternalTypeWithArity)
+			returnType: functionSpec returnType tfExternalTypeWithArity
+			fixedArgumentCount: fixedArgumentCount
+			abi: nil)
+				blocking: (self requestor optionAt: #optNonBlocking) not ].
+
 	^ 	(GtVirtualMachineExternalFunction
 			name: functionSpec functionName
 			moduleName: self libraryName
