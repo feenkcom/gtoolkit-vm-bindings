@@ -6,6 +6,9 @@ Class {
 
 { #category : #accessing }
 GtVirtualMachine class >> instance [
+	<gtExample>
+	<script: 'self instance inspect'>
+
 	^ self new
 ]
 
@@ -79,6 +82,13 @@ GtVirtualMachine >> namedPrimitives [
 ]
 
 { #category : #'private - primitives' }
+GtVirtualMachine >> primitiveAppInfo [
+	<primitive: #primitiveAppInfo>
+	
+	^ self primitiveFailed
+]
+
+{ #category : #'private - primitives' }
 GtVirtualMachine >> primitiveEnableLogSignal: aString [
 	<primitive: 'primitiveEnableLogSignal' error: ec>
 	
@@ -125,6 +135,13 @@ GtVirtualMachine >> primitiveStopLogger [
 	<primitive: 'primitiveStopLogger'>
 	
 	^ false
+]
+
+{ #category : #'private - primitives' }
+GtVirtualMachine >> primitiveVirtualMachineInfo [
+	<primitive: #primitiveVirtualMachineInfo>
+	
+	^ self primitiveFailed
 ]
 
 { #category : #'api - logger' }
