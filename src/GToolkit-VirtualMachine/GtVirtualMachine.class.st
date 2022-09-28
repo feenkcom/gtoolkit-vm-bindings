@@ -160,3 +160,24 @@ GtVirtualMachine >> stopLogger [
 	self primitiveStopLogger
 		ifFalse: [ self error: 'Could not stop a logger' ]
 ]
+
+{ #category : #'private - primitives' }
+GtVirtualMachine >> totalFullGCTimeMicroseconds [
+	"Answer the total time in microseconds spent in full GCs since startup (read-only)."
+	<primitive: #'primitiveFullGarbageCollectorMicroseconds'>
+
+	^ Smalltalk vm totalFullGCTime * 1000
+]
+
+{ #category : #accessing }
+GtVirtualMachine >> totalGCTimeMicroseconds [
+	^ self totalFullGCTimeMicroseconds + self totalScavengeGCTimeMicroseconds.
+]
+
+{ #category : #'private - primitives' }
+GtVirtualMachine >> totalScavengeGCTimeMicroseconds [
+	"Answer the total time in microseconds spent in scavenge GCs since startup (read-only)."
+	<primitive: #'primitiveScavengeGarbageCollectorMicroseconds'>
+
+	^ Smalltalk vm totalIncrementalGCTime * 1000
+]
