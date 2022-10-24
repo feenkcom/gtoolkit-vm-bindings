@@ -12,6 +12,14 @@ GtVirtualMachine class >> instance [
 	^ self new
 ]
 
+{ #category : #'api - accessing' }
+GtVirtualMachine >> bundleVersion [
+	"Return the version of the virtual machine bundle in the form of X.Y.Z"
+	<return: #String>
+
+	^ self primitiveAppVersion
+]
+
 { #category : #'api - logger' }
 GtVirtualMachine >> enableSignal: aSignalClassOrSigalOrAnnouncementSet [
 	"Enable a given signal type in the vm"
@@ -84,6 +92,13 @@ GtVirtualMachine >> namedPrimitives [
 { #category : #'private - primitives' }
 GtVirtualMachine >> primitiveAppInfo [
 	<primitive: #primitiveAppInfo>
+	
+	^ self primitiveFailed
+]
+
+{ #category : #'private - primitives' }
+GtVirtualMachine >> primitiveAppVersion [
+	<primitive: 'primitiveAppVersion' error: ec>
 	
 	^ self primitiveFailed
 ]
@@ -169,7 +184,7 @@ GtVirtualMachine >> totalFullGCTimeMicroseconds [
 	^ Smalltalk vm totalFullGCTime * 1000
 ]
 
-{ #category : #accessing }
+{ #category : #'api - accessing' }
 GtVirtualMachine >> totalGCTimeMicroseconds [
 	^ self totalFullGCTimeMicroseconds + self totalScavengeGCTimeMicroseconds.
 ]
