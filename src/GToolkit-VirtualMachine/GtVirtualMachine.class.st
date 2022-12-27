@@ -81,6 +81,26 @@ GtVirtualMachine >> eventLoopWaker: anExternalAddressThunk function: anExternalA
 ]
 
 { #category : #'api - accessing' }
+GtVirtualMachine >> headlessExecutable [
+	| binary |
+	binary := FileLocator vmBinary resolve.
+	 
+	^ Smalltalk platform isWindows
+		ifTrue: [ 
+			(binary basename endsWith: '-cli.exe') 
+				ifTrue: [ binary ]
+				ifFalse: [ 
+					| parts |
+					parts := '.' split: binary basename.
+					binary := binary parent / (parts first , '-cli.' , parts second) ] ]
+		ifFalse: [ 
+			(binary basename endsWith: '-cli') 
+				ifTrue: [binary ]
+				ifFalse: [ 
+					binary := binary parent / (binary basename , '-cli') ] ] .
+]
+
+{ #category : #'api - accessing' }
 GtVirtualMachine >> namedPrimitives [
 	^ self primitiveGetNamedPrimitives collect: [ :eachArray |
 		GtVirtualMachineNamedPrimitive new
