@@ -59,8 +59,12 @@ GtVirtualMachineFFIBackend >> integerOfObject: anObject at: byteOffset size: nBy
 
 { #category : #testing }
 GtVirtualMachineFFIBackend >> isAvailable [
-
-	^ [ self loadSymbol: #primitiveLoadSymbolFromModule module: nil. true ] onErrorDo: [ false ]
+	^ [
+		self
+			loadSymbol: #primitiveLoadSymbolFromModule
+			module: 'PharoVMCore'.
+		true ]
+	onErrorDo: [ false ]
 ]
 
 { #category : #'instance creation' }
