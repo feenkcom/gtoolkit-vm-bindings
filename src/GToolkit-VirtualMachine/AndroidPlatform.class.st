@@ -9,6 +9,16 @@ AndroidPlatform >> accept: aVisitor [
 	^ aVisitor visitAndroid: self
 ]
 
+{ #category : #visiting }
+AndroidPlatform >> ffiLibraryName: aLibrary [
+	^ aLibrary androidLibraryName
+]
+
+{ #category : #testing }
+AndroidPlatform >> isAndroid [
+	^ true
+]
+
 { #category : #accessing }
 AndroidPlatform >> potentialLocationsOfSourcesFile [
 	"According to the folder structure of Android the only reasonable
