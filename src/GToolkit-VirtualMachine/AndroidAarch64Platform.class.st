@@ -6,7 +6,7 @@ Class {
 
 { #category : #testing }
 AndroidAarch64Platform class >> isActivePlatform [
-	^ self currentPlatformName = 'android'
+	^ Smalltalk vm operatingSystemName = 'android'
 		and: [ (Smalltalk vm getSystemAttribute: 1003) = 'aarch64' ]
 ]
 
@@ -17,5 +17,5 @@ AndroidAarch64Platform >> accept: aVisitor [
 
 { #category : #visiting }
 AndroidAarch64Platform >> ffiLibraryName: aLibrary [
-	^ aLibrary unix64LibraryName
+	^ aLibrary androidAarch64LibraryName
 ]
