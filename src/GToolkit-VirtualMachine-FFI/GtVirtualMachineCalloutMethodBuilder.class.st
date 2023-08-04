@@ -7,7 +7,8 @@ Class {
 { #category : #'private - factory' }
 GtVirtualMachineCalloutMethodBuilder >> createFFICalloutLiteralFromSpec: functionSpec [
 
-	SystemVersion current major = 10 ifTrue: [ 
+	(SystemVersion current major = 10 or: [
+		SystemVersion current major = 11]) ifTrue: [ 
 		^ 	(GtVirtualMachineExternalFunction
 			name: functionSpec functionName
 			moduleName: self libraryName
