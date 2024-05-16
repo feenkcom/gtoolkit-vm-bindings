@@ -2,8 +2,12 @@ Extension { #name : #FFICalloutAPI }
 
 { #category : #'*GToolkit-VirtualMachine-FFI' }
 FFICalloutAPI >> compileFunction: functionSignature library: moduleNameOrLibrary sender: sender [
-	| ffiMethod ffiMethodSelector |
+	| originalMethod ffiMethod ffiMethodSelector |
 
+	originalMethod := sender methodClass methodDict at: sender selector.
+	(originalMethod hasProperty: #ffiNonCompiledMethod) ifTrue: [	
+		^ originalMethod ].
+	
 	ffiMethodSelector := self uFFIEnterMethodSelector.
 	"Build new method"
 	ffiMethod := self newBuilder build: [ :builder | 
@@ -17,7 +21,7 @@ FFICalloutAPI >> compileFunction: functionSignature library: moduleNameOrLibrary
 	"Replace with generated ffi method, but save old one for future use"
 	ffiMethod
 		propertyAt: #ffiNonCompiledMethod
-		put: (sender methodClass methodDict at: sender selector).
+		put: originalMethod.
 	"For senders search, one need to keep the selector in the properties"
 	ffiMethod propertyAt: #ffiMethodSelector put: ffiMethodSelector.
 	"Norm Green: Disable replacing our FFI compiled method for GCI libraries, otherwise the moduleNameOrLibrary arg is ignored after the first invocation 
