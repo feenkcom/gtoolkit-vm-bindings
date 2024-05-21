@@ -39,6 +39,7 @@ FFICalloutAPI >> compileFunction: functionSignature library: moduleNameOrLibrary
 
 { #category : #'*GToolkit-VirtualMachine-FFI' }
 FFICalloutAPI >> function: functionSignature library: moduleNameOrLibrary [
+	<gtPharoPatch: #Pharo>
 	| sender ffiMethod |
 
 	sender := self senderContext.
