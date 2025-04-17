@@ -3,7 +3,7 @@ Class {
 	#superclass : #FFILibrary,
 	#traits : 'TGtWithStringBox',
 	#classTraits : 'TGtWithStringBox classTrait',
-	#category : #'GToolkit-VirtualMachine-Something'
+	#category : #'GToolkit-VirtualMachine-SomeBindings'
 }
 
 { #category : #'library path' }

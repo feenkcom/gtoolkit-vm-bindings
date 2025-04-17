@@ -4,7 +4,7 @@ Class {
 	#classVars : [
 		'uniqueInstance'
 	],
-	#category : #'GToolkit-VirtualMachine-Something'
+	#category : #'GToolkit-VirtualMachine-SomeBindings'
 }
 
 { #category : #'as yet unclassified' }
