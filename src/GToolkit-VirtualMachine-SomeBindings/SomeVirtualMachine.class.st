@@ -4,7 +4,7 @@ Class {
 	#classVars : [
 		'uniqueInstance'
 	],
-	#category : #'GToolkit-VirtualMachine-Something'
+	#category : #'GToolkit-VirtualMachine-SomeBindings'
 }
 
 { #category : #'as yet unclassified' }
@@ -27,6 +27,20 @@ SomeVirtualMachine class >> uniqueInstance [
 ]
 
 { #category : #'as yet unclassified' }
+SomeVirtualMachine >> allClassNames [
+	^ SomeVirtualMachineStrings
+		fromNativeHandle: self primGetAllClassNames
+		during: [ :classNameStrings | classNameStrings asArray ]
+]
+
+{ #category : #views }
+SomeVirtualMachine >> classNamed: eachName [
+	^ self ffiLibrary
+		newString: eachName
+		during: [ :stringBox | SomeVirtualMachineClass fromNativeHandle: (self primGetClassNamed: stringBox) ]
+]
+
+{ #category : #'as yet unclassified' }
 SomeVirtualMachine >> evaluate: sourceCode [
 	^ self ffiLibrary getStringFrom: [ :returnStringBox |
 		self ffiLibrary
@@ -35,6 +49,22 @@ SomeVirtualMachine >> evaluate: sourceCode [
 				self
 					primEvaluate: sourceCodeStringBox
 					return: returnStringBox ] ]
+]
+
+{ #category : #views }
+SomeVirtualMachine >> gtAllClassesFor: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'Classes';
+		priority: 5;
+		items: [ self allClassNames ];
+		column: 'Name' text: [ :each | each gtDisplayString ];
+		send: [ :eachName | self classNamed: eachName ]
+]
+
+{ #category : #'as yet unclassified' }
+SomeVirtualMachine >> gtInspectorTitleString [
+	^ 'Runtime'
 ]
 
 { #category : #'as yet unclassified' }
@@ -48,4 +78,14 @@ SomeVirtualMachine >> primEvaluate: sourceCode return: returnString [
 		self,
 		void* sourceCode,
 		void* returnString))
+]
+
+{ #category : #'as yet unclassified' }
+SomeVirtualMachine >> primGetAllClassNames [
+	^ self ffiCall: #(void* glamorous_vm_virtual_machine_get_all_class_names(self))
+]
+
+{ #category : #'as yet unclassified' }
+SomeVirtualMachine >> primGetClassNamed: aStringBox [
+	^ self ffiCall: #(void* glamorous_vm_virtual_machine_get_class_named(self, void* aStringBox))
 ]
