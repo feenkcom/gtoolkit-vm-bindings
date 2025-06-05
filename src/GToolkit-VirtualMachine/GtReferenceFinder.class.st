@@ -30,6 +30,28 @@ GtReferenceFinder class >> findAllPathsTo: aTargetObject from: aStartObject [
 ]
 
 { #category : #accessing }
+GtReferenceFinder class >> findAllPathsToInstancesOf: aClass [
+	^ self
+		findAllPathsToInstancesOf: aClass
+		length: 10
+]
+
+{ #category : #accessing }
+GtReferenceFinder class >> findAllPathsToInstancesOf: aClass from: aTargetObject length: aPathLen [
+	<primitive: 'primitiveClassInstanceReferenceFinderFindAllPaths'>
+	
+	^ self primitiveFailed
+]
+
+{ #category : #accessing }
+GtReferenceFinder class >> findAllPathsToInstancesOf: aClass length: aPathLength [
+	^ self
+		findAllPathsToInstancesOf: aClass
+		from: Smalltalk
+		length: aPathLength
+]
+
+{ #category : #accessing }
 GtReferenceFinder class >> findPathTo: aTargetObject [
 	^ self
 		findPathTo: aTargetObject
