@@ -24,9 +24,15 @@ GtReferenceFinder class >> findAllPathsTo: aTargetObject [
 
 { #category : #accessing }
 GtReferenceFinder class >> findAllPathsTo: aTargetObject from: aStartObject [ 
-	<primitive: 'primitiveReferenceFinderFindAllPaths'>
-	
-	^ self primitiveFailed
+	^ self
+		primitiveFindAllPathsTo: aTargetObject
+		from: aStartObject
+		classes: {
+			GtReferencedRoot.
+			GtReferencedInstanceVariable.
+			GtReferencedContextVariable.
+			GtReferencedArrayItem
+		}
 ]
 
 { #category : #accessing }
@@ -38,9 +44,16 @@ GtReferenceFinder class >> findAllPathsToInstancesOf: aClass [
 
 { #category : #accessing }
 GtReferenceFinder class >> findAllPathsToInstancesOf: aClass from: aTargetObject length: aPathLen [
-	<primitive: 'primitiveClassInstanceReferenceFinderFindAllPaths'>
-	
-	^ self primitiveFailed
+	^ self
+		primitiveFindAllPathsToInstancesOf: aClass
+		from: aTargetObject
+		length: aPathLen
+		classes: {
+			GtReferencedRoot.
+			GtReferencedInstanceVariable.
+			GtReferencedContextVariable.
+			GtReferencedArrayItem
+		}
 ]
 
 { #category : #accessing }
@@ -63,4 +76,18 @@ GtReferenceFinder class >> findPathTo: aTargetObject from: aStartObject [
 	<primitive: 'primitiveReferenceFinderFindPath'>
 	
 	^ self primitiveFail
+]
+
+{ #category : #accessing }
+GtReferenceFinder class >> primitiveFindAllPathsTo: aTargetObject from: aStartObject classes: referencedObjectClasses [
+	<primitive: 'primitiveReferenceFinderFindAllPaths'>
+	
+	^ self primitiveFailed
+]
+
+{ #category : #accessing }
+GtReferenceFinder class >> primitiveFindAllPathsToInstancesOf: aClass from: aTargetObject length: aPathLen classes: referencedObjectClasses [
+	<primitive: 'primitiveClassInstanceReferenceFinderFindAllPaths'>
+	
+	^ self primitiveFailed
 ]
