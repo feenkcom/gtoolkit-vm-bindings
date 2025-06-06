@@ -23,16 +23,11 @@ GtReferenceFinder class >> findAllPathsTo: aTargetObject [
 ]
 
 { #category : #accessing }
-GtReferenceFinder class >> findAllPathsTo: aTargetObject from: aStartObject [ 
+GtReferenceFinder class >> findAllPathsTo: aTargetObject from: aStartObject [
 	^ self
 		primitiveFindAllPathsTo: aTargetObject
 		from: aStartObject
-		classes: {
-			GtReferencedRoot.
-			GtReferencedInstanceVariable.
-			GtReferencedContextVariable.
-			GtReferencedArrayItem
-		}
+		classes: self primitiveReferencedObjectClasses
 ]
 
 { #category : #accessing }
@@ -48,12 +43,7 @@ GtReferenceFinder class >> findAllPathsToInstancesOf: aClass from: aTargetObject
 		primitiveFindAllPathsToInstancesOf: aClass
 		from: aTargetObject
 		length: aPathLen
-		classes: {
-			GtReferencedRoot.
-			GtReferencedInstanceVariable.
-			GtReferencedContextVariable.
-			GtReferencedArrayItem
-		}
+		classes: self primitiveReferencedObjectClasses
 ]
 
 { #category : #accessing }
@@ -73,9 +63,25 @@ GtReferenceFinder class >> findPathTo: aTargetObject [
 
 { #category : #accessing }
 GtReferenceFinder class >> findPathTo: aTargetObject from: aStartObject [
-	<primitive: 'primitiveReferenceFinderFindPath'>
-	
-	^ self primitiveFail
+	^ self
+		primitiveFindPathTo: aTargetObject
+		from: aStartObject
+		classes: self primitiveReferencedObjectClasses
+]
+
+{ #category : #accessing }
+GtReferenceFinder class >> findPathToInstanceOf: aClass [
+	^ self
+		findPathToInstanceOf: aClass
+		from: Smalltalk
+]
+
+{ #category : #accessing }
+GtReferenceFinder class >> findPathToInstanceOf: aClass from: aTargetObject [
+	^ self
+		primitiveFindPathToInstanceOf: aClass
+		from: aTargetObject
+		classes: self primitiveReferencedObjectClasses
 ]
 
 { #category : #accessing }
@@ -90,4 +96,26 @@ GtReferenceFinder class >> primitiveFindAllPathsToInstancesOf: aClass from: aTar
 	<primitive: 'primitiveClassInstanceReferenceFinderFindAllPaths'>
 	
 	^ self primitiveFailed
+]
+
+{ #category : #accessing }
+GtReferenceFinder class >> primitiveFindPathTo: aTargetObject from: aStartObject classes: referencedObjectClasses [
+	<primitive: 'primitiveReferenceFinderFindPath'>
+	
+	^ self primitiveFail
+]
+
+{ #category : #accessing }
+GtReferenceFinder class >> primitiveFindPathToInstanceOf: aClass from: aTargetObject classes: referencedObjectClasses [
+	<primitive: 'primitiveClassInstanceReferenceFinderFindPath'>
+	
+	^ self primitiveFailed
+]
+
+{ #category : #accessing }
+GtReferenceFinder class >> primitiveReferencedObjectClasses [
+	^ {GtReferencedRoot.
+		GtReferencedInstanceVariable.
+		GtReferencedContextVariable.
+		GtReferencedArrayItem}
 ]
