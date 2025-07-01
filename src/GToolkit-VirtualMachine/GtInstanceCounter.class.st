@@ -4,12 +4,12 @@ Class {
 	#category : #'GToolkit-VirtualMachine-Core'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #api }
 GtInstanceCounter class >> countInstances [
 	^ self countInstancesFrom: Smalltalk
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #api }
 GtInstanceCounter class >> countInstancesFrom: aStartObject [
 	| allInstancesCount |
 	
@@ -19,7 +19,12 @@ GtInstanceCounter class >> countInstancesFrom: aStartObject [
 	^ allInstancesCount asOrderedDictionary
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #api }
+GtInstanceCounter class >> countInstancesSummary [
+	^ GtInstancesCountSummary fromDataDictionary: self countInstances
+]
+
+{ #category : #primitives }
 GtInstanceCounter class >> primitiveCountFrom: aStartObject associationClass: aClass [
 	<primitive: 'primitiveInstanceCounterCountAll'>
 
