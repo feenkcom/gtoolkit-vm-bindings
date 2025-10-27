@@ -1,3 +1,14 @@
+"
+Compile all call methods:
+```
+(1 to: 15) collect: [ :i |
+	BareFFIExternalFunction compile: (('{1}
+	<primitive: ''primitiveBareFfiCallout''>
+
+	self primitiveFailed') format: { BareFFIExternalFunction selector: i includingArgs: true }) classified: 'evaluating'
+]
+```
+"
 Class {
 	#name : #BareFFIExternalFunction,
 	#superclass : #Object,
@@ -6,10 +17,27 @@ Class {
 		'moduleName',
 		'functionName',
 		'argumentTypes',
-		'returnType'
+		'returnType',
+		'externalObjectClass',
+		'externalEnumerationClass'
 	],
 	#category : #'GToolkit-VirtualMachine-FFI-BareFFI'
 }
+
+{ #category : #accessing }
+BareFFIExternalFunction class >> selector: amountOfArguments includingArgs: shouldIncludeArgs [
+	| pattern |
+	amountOfArguments isZero
+		ifTrue: [ ^ #call ].
+		
+	pattern := shouldIncludeArgs
+		ifTrue: [ 'call: arg{1} ' ]
+		ifFalse: [ 'call:' ].
+
+	^ (((1 to: amountOfArguments)
+		collect: [ :j | pattern format: {j asString} ]) joinUsing: '')
+		asSymbol
+]
 
 { #category : #accessing }
 BareFFIExternalFunction >> argumentTypes [
@@ -18,7 +46,119 @@ BareFFIExternalFunction >> argumentTypes [
 
 { #category : #accessing }
 BareFFIExternalFunction >> arguments: aCollectionOfFFIType [
-	argumentTypes := aCollectionOfFFIType
+	argumentTypes := aCollectionOfFFIType asArray
+]
+
+{ #category : #evaluating }
+BareFFIExternalFunction >> call [
+	<primitive: 'primitiveBareFfiCallout'>
+
+	self primitiveFailed
+]
+
+{ #category : #evaluating }
+BareFFIExternalFunction >> call: arg1 [ 
+	<primitive: 'primitiveBareFfiCallout'>
+
+	self primitiveFailed
+]
+
+{ #category : #evaluating }
+BareFFIExternalFunction >> call: arg1 call: arg2 [ 
+	<primitive: 'primitiveBareFfiCallout'>
+
+	self primitiveFailed
+]
+
+{ #category : #evaluating }
+BareFFIExternalFunction >> call: arg1 call: arg2 call: arg3 [ 
+	<primitive: 'primitiveBareFfiCallout'>
+
+	self primitiveFailed
+]
+
+{ #category : #evaluating }
+BareFFIExternalFunction >> call: arg1 call: arg2 call: arg3 call: arg4 [ 
+	<primitive: 'primitiveBareFfiCallout'>
+
+	self primitiveFailed
+]
+
+{ #category : #evaluating }
+BareFFIExternalFunction >> call: arg1 call: arg2 call: arg3 call: arg4 call: arg5 [ 
+	<primitive: 'primitiveBareFfiCallout'>
+
+	self primitiveFailed
+]
+
+{ #category : #evaluating }
+BareFFIExternalFunction >> call: arg1 call: arg2 call: arg3 call: arg4 call: arg5 call: arg6 [ 
+	<primitive: 'primitiveBareFfiCallout'>
+
+	self primitiveFailed
+]
+
+{ #category : #evaluating }
+BareFFIExternalFunction >> call: arg1 call: arg2 call: arg3 call: arg4 call: arg5 call: arg6 call: arg7 [ 
+	<primitive: 'primitiveBareFfiCallout'>
+
+	self primitiveFailed
+]
+
+{ #category : #evaluating }
+BareFFIExternalFunction >> call: arg1 call: arg2 call: arg3 call: arg4 call: arg5 call: arg6 call: arg7 call: arg8 [ 
+	<primitive: 'primitiveBareFfiCallout'>
+
+	self primitiveFailed
+]
+
+{ #category : #evaluating }
+BareFFIExternalFunction >> call: arg1 call: arg2 call: arg3 call: arg4 call: arg5 call: arg6 call: arg7 call: arg8 call: arg9 [ 
+	<primitive: 'primitiveBareFfiCallout'>
+
+	self primitiveFailed
+]
+
+{ #category : #evaluating }
+BareFFIExternalFunction >> call: arg1 call: arg2 call: arg3 call: arg4 call: arg5 call: arg6 call: arg7 call: arg8 call: arg9 call: arg10 [ 
+	<primitive: 'primitiveBareFfiCallout'>
+
+	self primitiveFailed
+]
+
+{ #category : #evaluating }
+BareFFIExternalFunction >> call: arg1 call: arg2 call: arg3 call: arg4 call: arg5 call: arg6 call: arg7 call: arg8 call: arg9 call: arg10 call: arg11 [ 
+	<primitive: 'primitiveBareFfiCallout'>
+
+	self primitiveFailed
+]
+
+{ #category : #evaluating }
+BareFFIExternalFunction >> call: arg1 call: arg2 call: arg3 call: arg4 call: arg5 call: arg6 call: arg7 call: arg8 call: arg9 call: arg10 call: arg11 call: arg12 [ 
+	<primitive: 'primitiveBareFfiCallout'>
+
+	self primitiveFailed
+]
+
+{ #category : #evaluating }
+BareFFIExternalFunction >> call: arg1 call: arg2 call: arg3 call: arg4 call: arg5 call: arg6 call: arg7 call: arg8 call: arg9 call: arg10 call: arg11 call: arg12 call: arg13 [ 
+	<primitive: 'primitiveBareFfiCallout'>
+
+	self primitiveFailed
+]
+
+{ #category : #evaluating }
+BareFFIExternalFunction >> call: arg1 call: arg2 call: arg3 call: arg4 call: arg5 call: arg6 call: arg7 call: arg8 call: arg9 call: arg10 call: arg11 call: arg12 call: arg13 call: arg14 [ 
+	<primitive: 'primitiveBareFfiCallout'>
+
+	self primitiveFailed
+]
+
+{ #category : #evaluating }
+BareFFIExternalFunction >> call: arg1 call: arg2 call: arg3 call: arg4 call: arg5 call: arg6 call: arg7 call: arg8 call: arg9 call: arg10 call: arg11 call: arg12 call: arg13 call: arg14 call: arg15 [ 
+	<primitive: 'primitiveBareFfiCallout'>
+
+	self primitiveFailed
 ]
 
 { #category : #accessing }
@@ -39,14 +179,9 @@ BareFFIExternalFunction >> initialize [
 	moduleName := ''.
 	functionName := ''.
 	argumentTypes := #().
-	returnType := BareFFIType void
-]
-
-{ #category : #'as yet unclassified' }
-BareFFIExternalFunction >> invalidate [
-	<primitive: 'primitiveFastFfiCalloutInvalidate'>
-	
-	^ self primitiveFailed
+	returnType := BareFFIType void.
+	externalObjectClass := ExternalObject.
+	externalEnumerationClass := FFIEnumeration
 ]
 
 { #category : #accessing }
@@ -67,32 +202,4 @@ BareFFIExternalFunction >> return: anFFIType [
 { #category : #accessing }
 BareFFIExternalFunction >> returnType [
 	^ returnType
-]
-
-{ #category : #evaluating }
-BareFFIExternalFunction >> value [
-	<primitive: 'primitiveFastFfiCallout'>
-
-	self primitiveFailed
-]
-
-{ #category : #evaluating }
-BareFFIExternalFunction >> value: arg1 [
-	<primitive: 'primitiveFastFfiCallout'>
-
-	self primitiveFailed
-]
-
-{ #category : #evaluating }
-BareFFIExternalFunction >> value: arg1 value: arg2 [
-	<primitive: 'primitiveFastFfiCallout'>
-
-	self primitiveFailed
-]
-
-{ #category : #evaluating }
-BareFFIExternalFunction >> value: arg1 value: arg2 value: arg3 [
-	<primitive: 'primitiveFastFfiCallout'>
-
-	self primitiveFailed
 ]

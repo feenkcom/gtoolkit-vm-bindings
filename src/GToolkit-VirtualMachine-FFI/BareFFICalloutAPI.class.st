@@ -109,7 +109,7 @@ BareFFICalloutAPI >> initializeUFFIContext: aUFFIEntryPointContext [
 
 { #category : #action }
 BareFFICalloutAPI >> newBuilder [
-	^ FFICalloutMethodBuilder calloutAPI: self
+	^ BareFFICalloutMethodBuilder calloutAPI: self
 ]
 
 { #category : #accessing }
