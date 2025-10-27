@@ -9,7 +9,7 @@ Object >> ffiBareCall: fnSpec [
 	Please refer to the booklet about more configuration details
 	or some of the examples on the image LibC / FreeTypeFont / Athens / SDL."
 
-	self ffiBareCall: fnSpec library: self ffiLibrary options: #()
+	^ self ffiBareCall: fnSpec library: self ffiLibrary options: #()
 ]
 
 { #category : #'*GToolkit-VirtualMachine-FFI' }
@@ -19,7 +19,6 @@ Object >> ffiBareCall: fnSpec library: aLibrary options: callOptions [
 	| ffiLibrary |
 	ffiLibrary := aLibrary asFFILibrary.
 	^ (BareFFICalloutAPI inUFFIContext: thisContext)
-		convention: self ffiCallingConvention;
 		options: (ffiLibrary options), callOptions;
 		function: fnSpec library: ffiLibrary
 ]

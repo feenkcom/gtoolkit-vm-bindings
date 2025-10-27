@@ -166,6 +166,11 @@ BareFFIType class >> void [
 	^ Void
 ]
 
+{ #category : #printing }
+BareFFIType >> gtDisplayOn: stream [
+	stream nextPutAll: self name
+]
+
 { #category : #accessing }
 BareFFIType >> name [
 	^ name
