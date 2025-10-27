@@ -17,13 +17,17 @@ BareFFICalloutMethodBuilder >> createFFICalloutLiteralFromSpec: functionSpec [
 BareFFICalloutMethodBuilder >> generateFFICallout: builder spec: functionSpec ffiLibrary: ffiLibrary [
 	| callout |
 	
+	TFCalloutAPI isTracing ifTrue: [ 
+		TFCalloutAPI trace: sender. 
+		builder 
+			pushLiteral: TFCalloutAPI;
+			pushLiteral: sender;
+			send: #trace: ].
+	
 	callout := self createFFICalloutLiteralFromSpec: functionSpec.
 	
-	"Builds a method call"
-	"save ffi call as literal"
 	builder pushLiteral: callout.
 	
-	"iterate arguments in order (in the function) to create the function call"
 	functionSpec arguments do: [ :each | each ffiBareEmitArgument: builder context: sender inCallout: self requestor ].
 	
 	builder send: (BareFFIExternalFunction selector: functionSpec arguments size includingArgs: false).
