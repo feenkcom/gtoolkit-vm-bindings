@@ -7,20 +7,20 @@ Class {
 	#category : #'GToolkit-VirtualMachine-Core'
 }
 
-{ #category : #'instance creation' }
-GtObjectMemoryTally class >> analyzeObjectMemory [
-	^ self new initializeWith: (self
-		primitiveAnalyzeObjectMemory: GtObjectMemoryTallyItem
-		associationClass: Association
-		tallyDetailsClass: GtObjectMemoryTallyDetails
-		shouldIncludeDetails: true)
-]
-
 { #category : #'private - primitives' }
 GtObjectMemoryTally class >> primitiveAnalyzeObjectMemory: aTallyClass associationClass: anAssociationClass tallyDetailsClass: aDetailsClass shouldIncludeDetails: shouldIncludeDetails [
 	<primitive: 'primitiveAnalyzeObjectMemory'>
 	
 	^ self primitiveFailed
+]
+
+{ #category : #'instance creation' }
+GtObjectMemoryTally class >> systemWideSpaceTally [
+	^ self new initializeWith: (self
+		primitiveAnalyzeObjectMemory: GtObjectMemoryTallyItem
+		associationClass: Association
+		tallyDetailsClass: GtObjectMemoryTallyDetails
+		shouldIncludeDetails: true)
 ]
 
 { #category : #views }
