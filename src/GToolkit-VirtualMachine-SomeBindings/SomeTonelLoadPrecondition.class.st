@@ -3,11 +3,29 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'requiredName',
-		'requiredTKind',
+		'requiredKind',
 		'reason',
-		'dependentKind',
-		'dependentName',
-		'dependentSourcePath'
+		'dependent'
 	],
 	#category : #'GToolkit-VirtualMachine-SomeBindings-Tonel'
 }
+
+{ #category : #accessing }
+SomeTonelLoadPrecondition >> dependent [
+	^ dependent
+]
+
+{ #category : #accessing }
+SomeTonelLoadPrecondition >> reason [
+	^ reason
+]
+
+{ #category : #accessing }
+SomeTonelLoadPrecondition >> requiredKind [
+	^ requiredKind
+]
+
+{ #category : #accessing }
+SomeTonelLoadPrecondition >> requiredName [
+	^ requiredName
+]

@@ -3,7 +3,9 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'packageName',
-		'instructions',
+		'behaviors',
+		'methods',
+		'extensions',
 		'preconditions'
 	],
 	#category : #'GToolkit-VirtualMachine-SomeBindings-Tonel'
@@ -11,17 +13,41 @@ Class {
 
 { #category : #'as yet unclassified' }
 SomeTonelLoadPlan class >> buildLoadPlan: aFileReferenceToPackage [
-	^ self primitiveBuildLoadPlan: aFileReferenceToPackage asFileReference fullName planClass: SomeTonelLoadPlan
-	instructionClass: SomeTonelLoadInstruction
-	methodDefinitionClass: SomeTonelMethodDefinition
-	preconditionClass: SomeTonelLoadPrecondition
+	^ self
+		primitiveBuildLoadPlan: aFileReferenceToPackage asFileReference fullName
+		classes: {
+			SomeTonelLoadPlan.
+			SomeTonelBehaviorLoad.
+			SomeTonelClassDocument.
+			SomeTonelClassDefinition.
+			SomeTonelTraitDocument.
+			SomeTonelTraitDefinition.
+			SomeTonelExtensionLoad.
+			SomeTonelExtensionDocument.
+			SomeTonelMethodLoad.
+			SomeTonelMethodDocument.
+			SomeTonelMethodDefinition.
+			SomeTonelLoadPrecondition.
+			SomeTonelDependentEntity
+		}
 ]
 
 { #category : #'as yet unclassified' }
-SomeTonelLoadPlan class >> primitiveBuildLoadPlan: aString planClass: aPlanClass instructionClass: anInstructionClass methodDefinitionClass: aMethodDefinitionClass preconditionClass: aPreconditionClass [
+SomeTonelLoadPlan class >> primitiveBuildLoadPlan: aString classes: anArrayOfTonelClasses [
 	<primitive: 'primitiveTonelBuildLoadPlan'>
 	
 	^ self primitiveFailed
+]
+
+{ #category : #views }
+SomeTonelLoadPlan >> gtLoadBehaviorsFor: aView [
+	<gtView>
+	behaviors ifNil: [ ^ aView empty ].
+	^ aView columnedList
+		title: 'Behaviors';
+		priority: 3;
+		items: [ behaviors ];
+		column: 'Name' text: [ :each | each name ]
 ]
 
 { #category : #views }
@@ -32,5 +58,7 @@ SomeTonelLoadPlan >> gtPreconditionsFor: aView [
 		title: 'Preconditions';
 		priority: 5;
 		items: [ preconditions ];
-		column: 'Value' text: [ :each | each gtDisplayString ]
+		column: 'Missing' text: [ :each | each requiredName ];
+		column: 'Referenced by' text: [ :each | each dependent name ];
+		column: 'reason' text: [ :each | each reason ]
 ]
