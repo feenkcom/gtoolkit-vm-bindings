@@ -38,6 +38,17 @@ SomeTonelMethodDefinition >> gtDisplayOn: stream [
 ]
 
 { #category : #'as yet unclassified' }
+SomeTonelMethodDefinition >> gtSourceFor: aView [
+	<gtView>
+	^ aView textEditor
+		title: 'Source';
+		priority: 5;
+		aptitude: BrGlamorousCodeEditorAptitude;
+		styler: BrRBTextStyler new;
+		text: [ source ]
+]
+
+{ #category : #'as yet unclassified' }
 SomeTonelMethodDefinition >> isClassSide [
 	^ methodType = 'class'
 ]

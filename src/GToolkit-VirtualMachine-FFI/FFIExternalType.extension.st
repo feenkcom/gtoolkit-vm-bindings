@@ -2,10 +2,9 @@ Extension { #name : #FFIExternalType }
 
 { #category : #'*GToolkit-VirtualMachine-FFI' }
 FFIExternalType >> ffiBareEmitArgument: aBuilder context: aContext inCallout: aCallout [
-	self
-		basicEmitArgument: aBuilder
+	self loader
+		emitArgument: aBuilder
 		context: aContext
-		inCallout: aCallout
 ]
 
 { #category : #'*GToolkit-VirtualMachine-FFI' }
