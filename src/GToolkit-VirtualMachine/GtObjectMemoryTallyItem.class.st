@@ -11,6 +11,11 @@ Class {
 }
 
 { #category : #accessing }
+GtObjectMemoryTallyItem >> analyzedClassName [
+	^ class name
+]
+
+{ #category : #accessing }
 GtObjectMemoryTallyItem >> detailsPerSpace [
 	^ detailsPerSpace
 ]
