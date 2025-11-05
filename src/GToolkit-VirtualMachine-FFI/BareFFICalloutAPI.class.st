@@ -22,7 +22,7 @@ BareFFICalloutAPI class >> new [
 	self error: 'use #inFFIContext:'
 ]
 
-{ #category : #'*GToolkit-VirtualMachine-FFI' }
+{ #category : #accessing }
 BareFFICalloutAPI >> compileFunction: functionSignature library: moduleNameOrLibrary sender: sender [
 	| originalMethod ffiMethod ffiMethodSelector |
 
@@ -73,9 +73,8 @@ BareFFICalloutAPI >> findUffiEnterContext [
 	^ uffiEnterContext
 ]
 
-{ #category : #'*GToolkit-VirtualMachine-FFI' }
+{ #category : #accessing }
 BareFFICalloutAPI >> function: functionSignature library: moduleNameOrLibrary [
-	<gtPharoPatch: #Pharo>
 	| sender ffiMethod |
 
 	sender := self senderContext.
