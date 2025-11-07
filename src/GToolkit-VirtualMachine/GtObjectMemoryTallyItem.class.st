@@ -26,9 +26,7 @@ GtObjectMemoryTallyItem >> gtDetailsFor: aView [
 	^ aView columnedList
 		title: 'Details';
 		priority: 5;
-		items: [ {'Class' -> class.
-				'Size of instances' -> self printObjectsByteSize.
-				'Number of instances' -> self printObjectsSize } ];
+		items: [ self gtSummaryAttributes ];
 		column: 'Property' text: [ :each | each key ];
 		column: 'Value' text: [ :each | each value ];
 		send: [ :each | each value ]
@@ -50,6 +48,13 @@ GtObjectMemoryTallyItem >> gtSpaceDetailsFor: aView [
 			text: [ :each | each printObjectsByteSize ];
 		column: 'Instances'
 			text: [ :each | each printObjectsSize ]
+]
+
+{ #category : #views }
+GtObjectMemoryTallyItem >> gtSummaryAttributes [
+	^ {'Class' -> class.
+		'Size of instances' -> self printObjectsByteSize.
+		'Number of instances' -> self printObjectsSize }
 ]
 
 { #category : #accessing }
